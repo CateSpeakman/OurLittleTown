@@ -29,13 +29,60 @@ function getRoomPrice(choice)
 
 }
 
+/* This function will determine the checkout date.
+*@param numDays (number) - amount of days input by user
+*@param checkinDate (date) - this is the date selected by user for check in
+*@param checkoutDate (date) - this is the date the user will be checking out based on numDays and checkinDate
+*/
+
+function getCheckOut(numDays, checkinDate)
+{
+     
+    const msecPerDay = 1000*60*60*24;
+
+    let leaveDate= (checkinDate + (numDays*msecPerDay));
+
+    let checkoutDate = new Date(leaveDate);
+
+    return checkoutDate;
+}
+
+
+
+
 function getTotalCost()
 {
     let roomType = document.getElementById("bedSize")
     let choice = roomType.options[roomType.selectedIndex].value;
     let pricePerDay = getRoomPrice(choice);
 
-foloow bottom of car rental code
+    let numDays = document.getElementById("numDays").value;
+    numDays = Number(numDays);
+
+    
+    
+    let checkinDate = document.getElementById("checkinDate").value
+    checkinDate = Date.parse(checkinDate);
+
+    let checkoutDate = getCheckOut(checkinDate, numDays);
+
+    let totalRoomCost = getRoomCost(numDays, checkinDate, roomType);
+    let totalBreakfastCost = getBreakfastTotal(numDays, numAdults, numKids);
+    let totalDiscount = getDiscount(totalRoomCost, discountType);
+    
+    let tax = (totalRoomCost + totalBreakfastCost - totalDiscount) * .12;
+
+    let totalHotelCost = totalRoomCost + totalBreakfastCost - totalDiscount + tax;
+    totalHotelCost = parseFloat(totalHotelCost.toFixed(2));
+
+    document.getElementById("checkinDate").value=
+    document.getElementById("checkoutDate")=checkoutDate;
+    document.getElementById("roomTotal").value=totalRoomCost.toFixed(2);
+    document.getElementById("taxTotal").value=tax.toFixed(2);
+    document.getElementById("discountTotal").value=totalDiscount.toFixed(2);
+    document.getElementById("totalStayCost").value=totalHotellCost.toFixed(2);
+}
+
 
 
 
