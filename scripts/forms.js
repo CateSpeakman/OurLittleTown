@@ -62,7 +62,7 @@ function getCheckOut(numDays, checkinDate)
 */
 
 
-function getRoomCost(pricePerDay, numDays, checkinDate)
+function getRoomCost(pricePerDay, numDays)
 {
     let roomCost;
 
@@ -105,24 +105,24 @@ function getDiscountType()
 *@param discountType (text)  - this is derive from function getDiscountType
 */
 
-function getDiscount(totalRoomCost, discountType)
+function getDiscount(roomCost, discountType)
 {
     let discountTotal;
 
     if ((discountType =="aaa") || (discountTotal =="senior"))
     {
-        discountTotal = totalRoomCost *.10;
+        discountTotal = roomCost *.10;
     }
     else if (discountType =="military")
     {
-        discountTotal= totalRoomCost *.20;
+        discountTotal= roomCost *.20;
     }
     else if (discountType == "none")
     {
         discountTotal=0;
     }
 
-    return discountTotal
+    return discountTotal;
 }
 
 
@@ -245,7 +245,7 @@ function canRoomHoldCustomer(choice, numAdults, numKids)
         {roomType:"bedroomSuite", maxOcc:6, inSeasonRate:350, outSeasonRate:210}
     ],
         
-        totalOcc = numAdults + numKids;
+    let totalOcc = numAdults + numKids;
 
     for (let i=0; i<roomPrice.length; i++) 
     {
@@ -257,8 +257,6 @@ function canRoomHoldCustomer(choice, numAdults, numKids)
     }
 
 }
-
-
 
 
 function getTotalCost()
@@ -317,7 +315,7 @@ function getTotalCost()
 
  function init()
  {
-         const totalCostBtn = document.getElementById("totalCostBtn")
+         const totalCostBtn = document.getElementById("totalCostBtn");
          totalCostBtn.onclick = getTotalCost;
   }
      
