@@ -16,33 +16,31 @@
 function getRoomPrice(choice)
 {
 
-    let roomPrice=[
+    let roomPrice = [
         {roomType:"queen", maxOcc:5, inSeasonRate:250, outSeasonRate:150},
         {roomType:"king", maxOcc:2, inSeasonRate:250, outSeasonRate:150},
         {roomType:"kingSuite", maxOcc:4, inSeasonRate:310, outSeasonRate:190},
         {roomType:"bedroomSuite", maxOcc:6, inSeasonRate:350, outSeasonRate:210}
-    ],
+        ];
 
     for (let i=0; i<roomPrice.length; i++) 
     {
     
         if (choice==roomPrice[i].roomType)
         { 
-            let pricePerDay=roomPrice[i].outSeasonRate;
-
+            let pricePerDay = roomPrice[i].outSeasonRate;
             return pricePerDay;
         }
     }
-
+    return -1; /* if this occurs there is an error with the code*/
 }
 
 /* This function will determine the checkout date.
-*@param numDays (number) - amount of days input by user
 *@param checkinDate (date) - this is the date selected by user for check in
-*@param checkoutDate (date) - this is the date the user will be checking out based on numDays and checkinDate
+*@param numDays (number) - amount of days input by user
 */
 
-function getCheckOut(numDays, checkinDate)
+function getCheckOut(checkinDate,numDays)
 {
      
     const msecPerDay = 1000*60*60*24;
@@ -54,15 +52,15 @@ function getCheckOut(numDays, checkinDate)
     return checkoutDate;
 }
 
-/* this function will calculate the room cost not including discounts
+/* this function will calculate the room cost not including discounts or breakfast
+*@param numDays(number) - this is the number of days for the stay input by the use 
+*@param checkinDate (date) - this will be used in future to determine if the rate is in/out of season
 *@param pricePerDay (number) - this is the cost per day based on room type already determined by 
                                 the function getRoomPrice.
-@param checkinDate (date) - this will be used in future to determine if the rate is in/out of season
-@param numDays(number) - this is the number of days for the stay input by the use 
 */
 
 
-function getRoomCost(pricePerDay, numDays)
+function getRoomCost(numDays,checkinDate,pricePerDay)
 {
     let roomCost;
 
@@ -90,7 +88,7 @@ function getDiscountType()
     {
         discountType = "senior";
     }
-    else if (document.getElementById("military".checked))
+    else if (document.getElementById("military").checked)
     {
         discountType = "military";
     }
@@ -101,15 +99,15 @@ function getDiscountType()
 
 
 /* this function will calculate the total discount if applicable based discount type and total room cost.
-*@param totalRoomCost (number)  - this is derived from function getRoomCost
+*@param roomCost (number)  - this is derived from function getRoomCost
 *@param discountType (text)  - this is derive from function getDiscountType
 */
 
-function getDiscount(roomCost, discountType)
+function getDiscount(roomCost,discountType)
 {
     let discountTotal;
 
-    if ((discountType =="aaa") || (discountTotal =="senior"))
+    if ((discountType =="aaa") || (discountType =="senior"))
     {
         discountTotal = roomCost *.10;
     }
@@ -128,12 +126,13 @@ function getDiscount(roomCost, discountType)
 
 
 /* this function will determine the total breakfast cost per stay
+*@param numDays (number) - the number of days on the stay
 *@param numAdults (number)  - the number of adults input by user in dropdown
 *@param numKids (number) - the number of kids input by user in dropdown
-*@param numDays (number) - the number of days on the stay
+*@param discountType(text) - this is the type of discount input by user in radio buttons
 */
 
-function getBreakfastTotal(numAdults, numKids, numDays, discountType)
+function getBreakfastTotal(numDays,numAdults,numKids,discountType)
 { 
 
     let totalBreakfastCost;
@@ -160,27 +159,9 @@ function getNumAdults()
 {
     const adultCount = document.getElementById("numAdult");
     let adult = adultCount.options[adultCount.selectedIndex].value;
-    let numAdults = 0; 
+    let numAdults = Number(adult); 
 
-    switch(adult)
-    {
-        case "1":
-            numAdults = 1;
-            break;
-
-        case "2":
-            numAdults = 2;
-            break;
-
-        case "3":
-            numAdults = 3;
-            break;
-
-        case "4":
-            numAdults = 4;
-            break;
-
-        default:
+    if(numAdults > 4) {
             numAdults = 0;
             alert("Please enter valid selection");
     }
@@ -197,32 +178,12 @@ function getNumKids()
 {
     const kidCount = document.getElementById("numKids");
     let kid = kidCount.options[kidCount.selectedIndex].value;
-    let numKids = 0; 
+    let numKids = Number(kid); 
 
-    switch(kid)
-    {
-        case "0":
-            numKids = 0;
-            break;
-
-        case "1":
-            numKids = 1;
-            break;
-
-        case "2":
-            numKids = 2;
-            break;
-
-        case "3":
-            numKids = 3;
-            break;
-
-        case "4":
-            numKids = 4;
-            break;
-
-        default:
-            numKids = 0;
+    if(numKids > 4) {
+        numKids = 0;
+        alert("Please enter valid selection");
+}
            
     }
 
@@ -243,9 +204,10 @@ function canRoomHoldCustomer(choice, numAdults, numKids)
         {roomType:"king", maxOcc:2, inSeasonRate:250, outSeasonRate:150},
         {roomType:"kingSuite", maxOcc:4, inSeasonRate:310, outSeasonRate:190},
         {roomType:"bedroomSuite", maxOcc:6, inSeasonRate:350, outSeasonRate:210}
-    ],
-        
-    let totalOcc = numAdults + numKids;
+    ];
+
+     let totalOcc = 0;  
+     totalOcc = numAdults + numKids;
 
     for (let i=0; i<roomPrice.length; i++) 
     {
@@ -253,61 +215,91 @@ function canRoomHoldCustomer(choice, numAdults, numKids)
         if ((choice==roomPrice[i].roomType) && (totalOcc > roomPrice[i].maxOcc))
         { 
             alert("Selection above Maximum Occupancy. Please make a valid selction.");
+            return false;
         }
     }
-
+    return true;
 }
 
 
 function getTotalCost()
 {
+/* this is to pull the room selection value from the dropdown.
+* this will be used for obtaining the room price.
+*/
     let roomType = document.getElementById("bedSize");
     let choice = roomType.options[roomType.selectedIndex].value;
     let pricePerDay = getRoomPrice(choice);
 
+/* this is to pull the number of days stay from the input field.
+* this will be used inn several other functions for calculations.
+*/(0,4);
     let numDays = document.getElementById("numDays").value;
     numDays = Number(numDays);
 
+/* this is to pull the checkin date from the user input.
+* this is used to determine the checkout date which is returned witht the total price.
+*/
+
     let checkinDate = document.getElementById("checkinDate").value;
+
+    // change 2019-08-01 format to 08-01-2019
+    checkinDate = checkinDate.substr(5,2) + "-" + checkinDate.substr(8,2) + "-" + checkinDate.substr(0,4);
     checkinDate = Date.parse(checkinDate);
 
-    let checkoutDate = getCheckOut(checkinDate, numDays);
+    let checkoutDate = getCheckOut(checkinDate,numDays);
 
+/* this is used to determine the amount of discount to apply and used in other functions.*/
 
     let discountType = getDiscountType();
+/* these  get the number of adults and kids from the user input.  this will be needed for breakfast totals
+* and occupancy function.
+*/
 
     let numAdults = getNumAdults();
 
     let numKids = getNumKids();
 
-    canRoomHoldCustomer();
+/* this calls the room occupancy function and will set alert if needed*/
+    let isGood = canRoomHoldCustomer(numAdults, numKids, choice);
+    if (isGood == false)
+    {
+        return;
+    }
 
-    let roomCost = getRoomCost(numDays, checkinDate, pricePerDay);
-    RoomCost = parseFloat(totalRoomCost.toFixed(2));
+/* gets room cost before breakfast charges*/
+    let roomCost = getRoomCost(numDays,checkinDate,pricePerDay);
+    roomCost = parseFloat(roomCost.toFixed(2));
 
-    let totalBreakfastCost = getBreakfastTotal(numDays, numAdults, numKids);
+/* this calls the function to get the brekfast totals*/
+    let totalBreakfastCost = getBreakfastTotal(numDays,numAdults,numKids, discountType);
     totalBreakfastCost = parseFloat(totalBreakfastCost.toFixed(2));
 
-    let totalRoomCost = roomCost + totalBreakfastCost;
+/* this gets the overall room cost before discount*/
+    let totalRoomCost = (roomCost + totalBreakfastCost);
 
+/*this gets the total discount amount*/
     let totalDiscount = getDiscount(roomCost, discountType);
     totalDiscount = parseFloat(totalDiscount.toFixed(2));
-    
+
+/*this calculates the total tax amount*/   
     let tax = (totalRoomCost - totalDiscount) * .12;
     tax = parseFloat(tax.toFixed(2));
 
-    let totalHotelCost = totalRoomCost + tax - totalDiscount;
+/*this calculates the overall cost*/
+    let totalHotelCost = (totalRoomCost + tax - totalDiscount);
     totalHotelCost = parseFloat(totalHotelCost.toFixed(2));
 
 
 /*  these are the values I am returning back to the web page for display*/
 
+    checkinDate = new Date(checkinDate);
     document.getElementById("returnedCheckinDate").value=checkinDate;
     document.getElementById("checkoutDate").value=checkoutDate;
     document.getElementById("roomTotal").value=totalRoomCost.toFixed(2);
     document.getElementById("taxTotal").value=tax.toFixed(2);
     document.getElementById("discountTotal").value=totalDiscount.toFixed(2);
-    document.getElementById("totalStayCost").value=totalHotellCost.toFixed(2);
+    document.getElementById("totalStayCost").value=totalHotelCost.toFixed(2);
 }
 
 
