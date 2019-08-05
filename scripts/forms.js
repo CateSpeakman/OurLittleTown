@@ -136,7 +136,7 @@ function getBreakfastTotal(numDays,numAdults,numKids,discountType)
 { 
 
     let totalBreakfastCost;
-    let breakfastChoice =document.getElementById("breakfastIncluded".checked);
+    let breakfastChoice =document.getElementById("breakfastIncluded").checked;  
         
     if ((discountType == "senior") || (breakfastChoice == false))
     {
@@ -183,12 +183,14 @@ function getNumKids()
     if(numKids > 4) {
         numKids = 0;
         alert("Please enter valid selection");
-}
+    }   
+
+    return numKids;
            
     }
 
-    return numKids;
-}
+   
+
 
 /*this function will determine if the room selected is beyond maximum occupancy and set an alert if it is.
 * @param choice (text) - this is the room type requested by user 
