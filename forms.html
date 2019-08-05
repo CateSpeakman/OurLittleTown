@@ -1,160 +1,165 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/site.css">
     <title>Welcome to Barnet</title>
-  </head>
+</head>
 
 
 
- <body class="container-fluid">
-    <h1 class="jumbotron header">Welcome to Barnet,VT</h1>
-    
-<!-- this it is the navigation bar for the page-->
+<body>
+    <!-- this it is the navigation bar for the page-->
     <nav>
-    <ul class="nav justify-content-center" id="navigation">
+        <ul class="nav justify-content-center" id="navigation">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="forms.html">Book a Room</a>
-
+                <a class="nav-link active" href="forms.html">Book a Room</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="carRental.html">Rental Car</a>
-
-
+                <a class="nav-link" href="carRental.html">Rental Car</a>
             </li>
-    </ul>
-</nav>
-<!--this will begin the main section of the page for the hotel rental-->
-<main>
-        <h1 >Lake Room Rentals</h1>
+        </ul>
+    </nav>
 
-    <!-- this section will be the input from the user for the basic information needed to calculate the cost-->
-    <fieldset>
-        <div class="container">
-            <form name="hotelRoom">
-<!--user input for check in date-->
-                <div class="row my-3">
-                    <label for="checkinDate">Check-in date</label>
-                    <input type="date" id="checkinDate" name="checkinDate">
-                </div>
-<!--user input for number of days for visit-->
-                <div class="row my-3">
-                    <label for="numDays">Number of Days<br />(Min stay 1 night, Max 28)</label>
-                    <input type="number" id="numDays" name="numDays">
-                </div>
-<!-- user input for room type-->
-             <h2 id="roomTypes">Room types</h2>
-             <div class="row my-3">
-                 <select id="bedSize" name="bedSize">
-                     <option value="queen">Queen</option>
-                     <option value="king">King</option>
-                     <option value="kingSuite">King Suite</option>
-                     <option value="bedroomSuite">2-Bedroom Suite</option>
-                 </select>
-             </div>
-<             
-             <h2 class="numPerson">Number of Adults</h2>
-             <div class="row my-3">
-                 <select id="numAdult" name="numAdult">
-                     <option value="1">1</option>
-                     <option value="2">2</option>
-                     <option value="3">3</option>
-                     <option value="4">4</option>
-                 </select>
-             </div>
+    <header>
+        <h1 class="jumbotron header">Welcome to Barnet,VT</h1>
+    </header>
+    <!--this will begin the main section of the page for the hotel rental-->
+    <main>
 
-             <h2 class="numPerson">Number of Children</h2>
-             <div class="row my-3">
-                 <select id="numKids" name="numKids">
-                     <option value="0">0</option>
-                     <option value="1">1</option>
-                     <option value="2">2</option>
-                     <option value="3">3</option>
-                     <option value="4">4</option>
-                 </select>
-             </div>
 
-             <div class="row my-3 col-md-4">
-             <input type="checkbox" id="breakfastIncluded" name="breakfastIncluded" value="breakfastIncluded"> Include Breakfast( rate includes breakfast)
+        <!-- this section will be the input from the user for the basic information needed to calculate the cost-->
+        <fieldset>
+            <div class="container">
+                <h2>Lake Room Rentals</h2>
+                <form name="hotelRoom">
+                    <!--user input for check in date-->
+                    <div class="row my-3">
+                        <label for="checkinDate">Check-in date</label>
+                        <input type="date" id="checkinDate" name="checkinDate" required>
+                    </div>
+                    <!--user input for number of days for visit-->
+                    <div class="row my-3">
+                        <label for="numDays">Number of Days</label>
+                        <input type="number" id="numDays" name="numDays" min="1" max="28" required>
+                    </div>
+                    <!-- user input for room type-->
+                    <h2 id="roomTypes">Room types</h2>
+                    <div class="row my-3">
+                        <select id="bedSize" name="bedSize" required>
+                            <option value="queen">Queen</option>
+                            <option value="king">King</option>
+                            <option value="kingSuite">King Suite</option>
+                            <option value="bedroomSuite">2-Bedroom Suite</option>
+                        </select>
+                    </div>
+
+                    <h2 class="numPerson">Number of Adults</h2>
+                    <div class="row my-3">
+                        <select id="numAdult" name="numAdult" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+
+                    <h2 class="numPerson">Number of Children</h2>
+                    <div class="row my-3">
+                        <select id="numKids" name="numKids" required>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+
+                    <div class="row my-3 col-md-4">
+                        <input type="checkbox" id="breakfastIncluded" name="breakfastIncluded"
+                            value="breakfastIncluded">
+                        <label class="form-check-label" for="breakfastIncluded">Include Breakfast( rate includes
+                            breakfast)</label> 
+                    </div>
+
+                    <h2 id="discount"> Discounts Available</h2>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="discount" id="none" value="none" checked>
+                        <label class="form-check-label" for="none">None</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="discount" id="aaa" value="aaa">
+                        <label class="form-check-label" for="aaa">AAA</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="discount" id="senior" value="senior">
+                        <label class="form-check-label" for="senior">Senior</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="discount" id="military" value="military">
+                        <label class="form-check-label" for="military">Military</label>
+                    </div>
+
+                    <div class="row my-3">
+                    </div>
+
+                    <input class="btn btn-success" type="button" id="totalCostBtn" value="Estimate Total Cost">
+                    <input class="btn btn-success" type="reset" value="Reset">
+
+
+                    <div class="row my-3">
+                        <label for="checkinDate">Check In Date</label>
+                        <input type="text" id="returnedCheckinDate" name="checkinDate" readonly>
+                    </div>
+
+                    <div class="row my-3">
+                        <label for="checkoutDate">Check out Date</label>
+                        <input type="text" id="checkoutDate" name="checkoutDate" readonly>
+                    </div>
+
+                    <div class="row my-3">
+                        <label for="roomTotal">Total Room (including breakfast):</label>
+                        <input type="number" id="roomTotal" name="roomTotal" readonly>
+                    </div>
+
+                    <div class="row my-3">
+                        <label for="discountTotal">Total Discount:</label>
+                        <input type="number" id="discountTotal" name="discountTotal" readonly>
+                    </div>
+
+                    <div class="row my-3">
+                        <label for="taxTotal">Tax:</label>
+                        <input type="number" id="taxTotal" name="taxTotal" readonly>
+                    </div>
+
+                    <div class="row my-3">
+                    </div>
+
+                    <div class="row my-3">
+                        <label for="totalStayCost">Total due:</label>
+                        <input type="number" id="totalStayCost" name="totalStayCost" readonly>
+                    </div>
+                </form>
             </div>
+        </fieldset>
 
-            <h2 id="discount"> Discounts Available</h2>
-
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type ="radio" name="discount" id="none" value="none" checked>
-                <label class= "form-check-label" for="none">None</label>
-             </div>
-
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type ="radio" name="discount" id="aaa" value="aaa">
-                <label class= "form-check-label" for="aaa">AAA</label>
-            </div>
-
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type ="radio" name="discount" id="senior" value="senior">
-                <label class= "form-check-label" for="senior">Senior</label>
-            </div>
-
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type ="radio" name="discount" id="military" value="military">
-                <label class= "form-check-label" for="military">Military</label>
-            </div>
-
-            <div class="row my-3">   
-            </div>
-
-        <input class="btn btn-success" type="button" id="totalCostBtn" value="Estimate Total Cost">
-        <input class = "btn btn-success" type="reset" value="Reset">
+    </main>
 
 
-        <div class="row my-3">
-            <label for="checkinDate">Check In Date</label>
-            <input type="text" id="returnedCheckinDate" name="checkinDate">
-        </div>
-
-        <div class="row my-3">
-            <label for="checkoutDate">Check out Date</label>
-            <input type="text" id="checkoutDate" name="checkoutDate">
-        </div>
-
-     <div class="row my-3">
-        <label for="roomTotal">Total Room (including breakfast):</label>
-        <input type="number" id="roomTotal" name="roomTotal" readonly>
-     </div>
-
-     <div class="row my-3">
-        <label for="discountTotal">Total Discount:</label>
-        <input type="number" id="discountTotal" name="discountTotal" readonly>
-     </div>
-
-     <div class="row my-3">
-        <label for="taxTotal">Tax:</label>
-        <input type="number" id="taxTotal" name="taxTotal" readonly>
-     </div>
-
-     <div class="row my-3">   
-     </div>
-
-     <div class="row my-3">  
-        <label for="totalStayCost">Total due:</label>
-        <input type="number" id="totalStayCost" name="totalStayCost" readonly> 
-    </div>
-</form>
-</div>
-</fieldset>
-
-</main>
-
-    
 
 
 
@@ -164,9 +169,16 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     <script src="scripts/forms.js"></script>
-  </body>
+</body>
+
 </html>
